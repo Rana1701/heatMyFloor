@@ -13,10 +13,21 @@ public class Controleur {
     public Controleur() {
         this.piece = new Piece(320, 120, 400, 300); // Dimensions par défaut
     }
+    
+    //Creation d'une pièce régulière
+    public void creerPieceReguliere(int x, int y, int largeur, int longueur) {
+    this.piece = new Piece(x, y, largeur, longueur);
+    }
 
+    //cette méthode sert aussi à redimensionner une pièce via le panneau
     public void definirTaillePiece(int largeur, int longueur) {
         piece.setTaille(largeur, longueur);
 
+    }
+    
+    //redimensionner une pièce
+    public void redimensionnerPiece(int nouvelleLargeur, int nouvelleLongueur) {
+        piece.redimensionner(nouvelleLongueur, nouvelleLargeur);
     }
 
     public void ajouterMeubleSansDrain(int x, int y, int largeur, int hauteur, TypeMeubleSansDrain type) {
@@ -32,6 +43,6 @@ public class Controleur {
             MeubleSansDrainDTO dto = new MeubleSansDrainDTO(meuble.getPosition(), meuble.getTaille(), meuble.getType());
             meublesDTO.add(dto);
         }
-        return new PieceDTO(piece.getLargeur(), piece.getLongueur(), meublesDTO);
+        return new PieceDTO(piece.getX(), piece.getY(), piece.getLargeur(), piece.getLongueur(), meublesDTO);
     }
 }

@@ -66,6 +66,7 @@ public MainWindow() {
         longueurLabel2 = new javax.swing.JLabel();
         largeurLabel2 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
+        jButton5 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         saveProject = new javax.swing.JMenuItem();
@@ -136,7 +137,7 @@ public MainWindow() {
 
         Element2Meuble.setText("-> Meuble (Placard)");
 
-        jButton3.setText("Appliquer taille");
+        jButton3.setText("Redimensionner la pièce");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -205,6 +206,13 @@ public MainWindow() {
 
         largeurLabel2.setText("largeur");
 
+        jButton5.setText("Créer la pièce");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout EditionPanelLayout = new javax.swing.GroupLayout(EditionPanel);
         EditionPanel.setLayout(EditionPanelLayout);
         EditionPanelLayout.setHorizontalGroup(
@@ -212,7 +220,7 @@ public MainWindow() {
             .addGroup(EditionPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(EditionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(SelectionElements, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                    .addComponent(SelectionElements, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
                     .addGroup(EditionPanelLayout.createSequentialGroup()
                         .addGroup(EditionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(EditionPanelLayout.createSequentialGroup()
@@ -261,7 +269,8 @@ public MainWindow() {
                                 .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         EditionPanelLayout.setVerticalGroup(
             EditionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -279,11 +288,13 @@ public MainWindow() {
                     .addComponent(largeur1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(longueur1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(jButton3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(EditionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editionTailleElementSelectionne)
                     .addComponent(NomElementSelectionne))
@@ -315,11 +326,13 @@ public MainWindow() {
             DrawingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DrawingPanelLayout.createSequentialGroup()
                 .addComponent(EditionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 560, Short.MAX_VALUE))
+                .addGap(0, 549, Short.MAX_VALUE))
         );
         DrawingPanelLayout.setVerticalGroup(
             DrawingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(EditionPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(DrawingPanelLayout.createSequentialGroup()
+                .addComponent(EditionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         getContentPane().add(DrawingPanel, java.awt.BorderLayout.CENTER);
@@ -345,6 +358,11 @@ public MainWindow() {
         fileMenu.add(exportPNG);
 
         nouvellePiece.setText("Nouvelle pièce");
+        nouvellePiece.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nouvellePieceActionPerformed(evt);
+            }
+        });
         fileMenu.add(nouvellePiece);
 
         redimensionnerPiece.setText("Redimensionner pièce");
@@ -416,11 +434,6 @@ public MainWindow() {
         jMenu9.add(jMenuItem3);
 
         jMenuItem7.setText("Armoire");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
-            }
-        });
         jMenu9.add(jMenuItem7);
 
         jMenu2.add(jMenu9);
@@ -462,6 +475,35 @@ public MainWindow() {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        try {
+        // Récupérer les valeurs des champs du deuxième groupe
+        int largeur = Integer.parseInt(largeur2.getText());
+        int longueur = Integer.parseInt(longueur2.getText());
+        
+        // Récupérer l'unité sélectionnée
+        String unite = (String) jComboBox5.getSelectedItem();
+        /*
+        // Conversion inch -> px si nécessaire
+        if (unite.equals("inch")) {
+            largeur = (int)(largeur * 2.54);
+            longueur = (int)(longueur * 2.54);
+        }
+        */
+        // Redimensionner la pièce via le contrôleur
+        controleur.redimensionnerPiece(largeur, longueur);
+        
+        // Redessiner
+        DrawingPanel.repaint();
+       
+    } catch (NumberFormatException e) {
+        javax.swing.JOptionPane.showMessageDialog(
+            this, 
+            "Erreur: Veuillez entrer des nombres valides!",
+            "Erreur",
+            javax.swing.JOptionPane.ERROR_MESSAGE
+        );
+    }
+        
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void largeur1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_largeur1ActionPerformed
@@ -497,6 +539,51 @@ public MainWindow() {
         DrawingPanel.repaint(); // pour redessiner
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        try {
+        // Récupérer les valeurs des champs
+        int largeur = Integer.parseInt(largeur1.getText());
+        int longueur = Integer.parseInt(longueur1.getText());
+        
+        // Récupérer l'unité sélectionnée
+        String unite = (String) jComboBox4.getSelectedItem();
+        /*
+        // Conversion inch -> px 
+        if (unite.equals("inch")) {
+            largeur = (int)(largeur * 2.54); // conversion approximative
+            longueur = (int)(longueur * 2.54);
+        }
+        */
+        // Créer la nouvelle pièce via le contrôleur
+        controleur.creerPieceReguliere(320, 120, largeur, longueur);
+        
+        // Redessiner
+        DrawingPanel.repaint();
+        
+    } catch (NumberFormatException e) {
+        javax.swing.JOptionPane.showMessageDialog(
+            this, 
+            "Erreur: Veuillez entrer des nombres valides!",
+            "Erreur",
+            javax.swing.JOptionPane.ERROR_MESSAGE
+        );
+    }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    //Créer une pièce depuis le menu File -> nouvelle pièce 
+    //on crée une nouvelle pièce avec des valeurs par défaut
+    private void nouvellePieceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nouvellePieceActionPerformed
+        // TODO add your handling code here:
+        // Crée une pièce avec des dimensions par défaut
+        controleur.creerPieceReguliere(320, 120, 400, 300);
+        DrawingPanel.repaint();
+    
+        //met à jour les champs pour refléter les nouvelles valeurs
+        largeur1.setText("400");
+        longueur1.setText("300");
+    }//GEN-LAST:event_nouvellePieceActionPerformed
+
      private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt){
         controleur.ajouterMeubleSansDrain(200, 100, 70, 70, TypeMeubleSansDrain.ARMOIRE);
         DrawingPanel.repaint();
@@ -530,6 +617,7 @@ public MainWindow() {
     private javax.swing.JMenu fileMenu;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JComboBox<String> jComboBox5;

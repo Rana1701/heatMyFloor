@@ -9,7 +9,7 @@ public class Afficheur {
     // Dessine la pièce (rectangle blanc)
     public static void afficherPiece(Graphics2D g2, PieceDTO pieceDTO) {
         g2.setColor(Color.WHITE);
-        g2.fillRect(320, 120, pieceDTO.getLargeur(), pieceDTO.getLongueur());
+        g2.fillRect(pieceDTO.getX(), pieceDTO.getY(), pieceDTO.getLargeur(), pieceDTO.getLongueur());
     }
 
     // Dessine tous les meubles sans drain

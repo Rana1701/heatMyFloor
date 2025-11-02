@@ -40,6 +40,19 @@ public class Piece {
         this.longueur = longueur;
 
     }
+    
+    public void setLongueur(int longueur) {
+        this.longueur = longueur;
+    }
+
+    public void setLargeur(int largeur) {
+        this.largeur = largeur;
+    }
+    
+    public void redimensionner(int nouvelleLongueur, int nouvelleLargeur) {
+        this.longueur = nouvelleLongueur;
+        this.largeur = nouvelleLargeur;
+    }
 
     public void ajouterMeuble(MeubleSansDrain meuble) {
         meubles.add(meuble);
