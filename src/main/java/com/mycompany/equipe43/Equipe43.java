@@ -3,6 +3,7 @@
  */
 
 package com.mycompany.equipe43;
+import com.mycompany.equipe43.Vue.MainWindow;
 import java.awt.FlowLayout;
 
 /**

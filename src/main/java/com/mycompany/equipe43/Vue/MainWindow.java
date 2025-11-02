@@ -1,4 +1,4 @@
-package com.mycompany.equipe43;
+package com.mycompany.equipe43.Vue;
 
 
 
@@ -6,6 +6,8 @@ package com.mycompany.equipe43;
  *
  * @author etudiant
  */
+import com.mycompany.equipe43.Domaine.Controleur;
+import com.mycompany.equipe43.Domaine.TypeMeubleSansDrain;
 import java.awt.BorderLayout;
 
 import java.awt.FlowLayout;
@@ -13,12 +15,15 @@ import javax.swing.JFrame;
 
 public class MainWindow extends javax.swing.JFrame {
 
+    private Controleur controleur;
 
 public MainWindow() {
-    initComponents(); 
-        DrawingPanel drawing = new DrawingPanel();
+
+    initComponents();
+    controleur = new Controleur();
+    DrawingPanel drawing = new DrawingPanel(controleur);
     drawing.setBackground(new java.awt.Color(51, 51, 51));
-    DrawingPanel.setLayout(new BorderLayout()); 
+    DrawingPanel.setLayout(new BorderLayout());
     DrawingPanel.add(drawing, BorderLayout.CENTER);
     DrawingPanel.revalidate();
     DrawingPanel.repaint();
@@ -403,9 +408,19 @@ public MainWindow() {
         jMenu9.setText("Sans Drain");
 
         jMenuItem3.setText("Placard");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu9.add(jMenuItem3);
 
         jMenuItem7.setText("Armoire");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         jMenu9.add(jMenuItem7);
 
         jMenu2.add(jMenu9);
@@ -477,6 +492,16 @@ public MainWindow() {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox5ActionPerformed
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        controleur.ajouterMeubleSansDrain(100, 100, 70, 110, TypeMeubleSansDrain.PLACARD);
+        DrawingPanel.repaint(); // pour redessiner
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt){
+        controleur.ajouterMeubleSansDrain(200, 100, 70, 70, TypeMeubleSansDrain.ARMOIRE);
+        DrawingPanel.repaint();
+
+    }
     /**
      * @param args the command line arguments
      */
@@ -484,7 +509,7 @@ public MainWindow() {
         JFrame frame = new JFrame("Grille");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 400); // ça c la taille de ma fenêtre
-        frame.add(new DrawingPanel()); 
+        frame.add(new DrawingPanel());
         frame.setVisible(true); // affiche la fenêtre
 
     }
