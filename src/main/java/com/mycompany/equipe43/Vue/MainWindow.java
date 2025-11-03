@@ -8,6 +8,7 @@ package com.mycompany.equipe43.Vue;
  */
 import com.mycompany.equipe43.Domaine.Controleur;
 import com.mycompany.equipe43.Domaine.TypeMeubleSansDrain;
+import com.mycompany.equipe43.Domaine.DTO.PieceDTO;
 import java.awt.BorderLayout;
 
 import java.awt.FlowLayout;
@@ -16,6 +17,7 @@ import javax.swing.JFrame;
 public class MainWindow extends javax.swing.JFrame {
 
     private Controleur controleur;
+    private DrawingPanel drawing;
 
 public MainWindow() {
 
@@ -27,7 +29,16 @@ public MainWindow() {
     DrawingPanel.add(drawing, BorderLayout.CENTER);
     DrawingPanel.revalidate();
     DrawingPanel.repaint();
+    drawing.setMainWindow(this);
 }
+
+// Méthode publique pour mettre à jour les champs
+    public void updateTailleFields() {
+        PieceDTO piece = controleur.getPiece();
+        if (piece != null) {
+            largeur1.setText(String.valueOf(piece.getLargeur()));
+            longueur1.setText(String.valueOf(piece.getLongueur()));
+        }}
 
 
 
@@ -477,8 +488,8 @@ public MainWindow() {
         // TODO add your handling code here:
         try {
         // Récupérer les valeurs des champs du deuxième groupe
-        int largeur = Integer.parseInt(largeur2.getText());
-        int longueur = Integer.parseInt(longueur2.getText());
+        int largeur = Integer.parseInt(largeur1.getText());
+        int longueur = Integer.parseInt(longueur1.getText());
         
         // Récupérer l'unité sélectionnée
         String unite = (String) jComboBox5.getSelectedItem();
@@ -589,6 +600,7 @@ public MainWindow() {
         DrawingPanel.repaint();
 
     }
+     
     /**
      * @param args the command line arguments
      */
