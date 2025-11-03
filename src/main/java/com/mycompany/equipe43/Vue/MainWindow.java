@@ -38,7 +38,11 @@ public MainWindow() {
         if (piece != null) {
             largeur1.setText(String.valueOf(piece.getLargeur()));
             longueur1.setText(String.valueOf(piece.getLongueur()));
-        }}
+        }
+        DrawingPanel.revalidate();
+        DrawingPanel.repaint();
+        this.revalidate();  // Rafraîchit toute la fenêtre
+    }
 
 
 

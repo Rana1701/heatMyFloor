@@ -77,6 +77,7 @@ public class DrawingPanel extends JPanel {
                     if (mainWindow != null) {
                         mainWindow.updateTailleFields();
                     }
+                    
                 }
             }
             
