@@ -30,6 +30,13 @@ public MainWindow() {
     DrawingPanel.revalidate();
     DrawingPanel.repaint();
     drawing.setMainWindow(this);
+    // Initialiser les champs avec les dimensions de la pièce par défaut
+    PieceDTO pieceInitiale = controleur.getPiece();
+    if (pieceInitiale != null) {
+        // Remplir les champs de création de pièce
+        largeur1.setText(String.valueOf(pieceInitiale.getLargeur()));
+        longueur1.setText(String.valueOf(pieceInitiale.getLongueur()));
+    }
 }
 
 // Méthode publique pour mettre à jour les champs

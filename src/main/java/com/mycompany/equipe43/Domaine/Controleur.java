@@ -11,7 +11,7 @@ public class Controleur {
     private Piece piece;
 
     public Controleur() {
-        this.piece = new Piece(320, 120, 400, 300); // Dimensions par défaut
+        this.piece = new Piece(320, 120, 300, 300); // Dimensions par défaut
     }
     
     //Creation d'une pièce régulière
