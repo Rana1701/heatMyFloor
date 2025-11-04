@@ -56,7 +56,7 @@ public MainWindow() {
         this.revalidate();  // Rafraîchit toute la fenêtre
     }
 
-<<<<<<< HEAD
+
     public void afficherMeubleSelectionne() {
     MeubleSansDrain meuble = controleur.getMeubleSelectionne();
     if (meuble != null) {
@@ -69,9 +69,6 @@ public MainWindow() {
     }
 }
 
-
-=======
->>>>>>> 218bd0d (Ajout des fonctionnalités Undo/Redo et intégration interface graphique)
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

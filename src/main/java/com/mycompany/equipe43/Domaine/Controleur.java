@@ -10,12 +10,9 @@ import java.util.Stack;
 
 public class Controleur {
     private Piece piece;
-<<<<<<< HEAD
     private MeubleSansDrain meubleSelectionne = null;
-=======
     private Stack<Piece> undos = new Stack<>(); 
     private Stack<Piece> redos = new Stack<>();
->>>>>>> 218bd0d (Ajout des fonctionnalités Undo/Redo et intégration interface graphique)
 
     public Controleur() {
         this.piece = new Piece(320, 120, 300, 300); // Dimensions par défaut

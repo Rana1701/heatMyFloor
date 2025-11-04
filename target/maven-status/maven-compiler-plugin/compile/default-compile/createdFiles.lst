@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-com/mycompany/equipe43/Vue/Drawing/Selection.class
-=======
 com\mycompany\equipe43\Domaine\DTO\MeubleSansDrainDTO.class
 com\mycompany\equipe43\Vue\MainWindow$3.class
 com\mycompany\equipe43\Domaine\DTO\PieceDTO.class
@@ -30,4 +27,3 @@ com\mycompany\equipe43\Vue\MainWindow$11.class
 com\mycompany\equipe43\Vue\MainWindow$5.class
 com\mycompany\equipe43\Equipe43$1.class
 com\mycompany\equipe43\Vue\DrawingPanel$1.class
->>>>>>> 218bd0d (Ajout des fonctionnalités Undo/Redo et intégration interface graphique)
