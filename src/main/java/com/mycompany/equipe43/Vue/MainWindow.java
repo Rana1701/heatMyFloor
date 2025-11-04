@@ -38,6 +38,8 @@ public MainWindow() {
         largeur1.setText(String.valueOf(pieceInitiale.getLargeur()));
         longueur1.setText(String.valueOf(pieceInitiale.getLongueur()));
     }
+        jMenuItem7.addActionListener(evt -> jMenuItem7ActionPerformed(evt));
+
 }
 
 // Méthode publique pour mettre à jour les champs
