@@ -59,6 +59,7 @@ public class Controleur {
                 meubleSelectionne = meuble;
                 break;
             }
+            
         }
     }
 

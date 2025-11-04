@@ -62,6 +62,9 @@ public MainWindow() {
         // Afficher dans la console ou dans un label
         System.out.println(info);
     }
+    DrawingPanel.revalidate();
+    DrawingPanel.repaint();
+    this.revalidate();  // Rafraîchit toute la fenêtre
 }
 
 
