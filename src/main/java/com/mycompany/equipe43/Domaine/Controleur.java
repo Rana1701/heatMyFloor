@@ -28,7 +28,30 @@ public class Controleur {
     
     //redimensionner une pièce
     public void redimensionnerPiece(int nouvelleLargeur, int nouvelleLongueur) {
-        piece.redimensionner(nouvelleLongueur, nouvelleLargeur);
+        //piece.redimensionner(nouvelleLongueur, nouvelleLargeur);
+        if (piece == null) return;
+
+        // Calcul du facteur d'échelle
+        double facteurX = (double) nouvelleLargeur / piece.getLargeur();
+        double facteurY = (double) nouvelleLongueur / piece.getLongueur();
+
+        // Redimensionner la pièce
+        piece.redimensionner(nouvelleLargeur, nouvelleLongueur);
+
+        // Adapter la position et la taille de chaque meuble
+        for (MeubleSansDrain meuble : piece.getMeubles()) {
+            Point pos = meuble.getPosition();
+            Dimension taille = meuble.getTaille();
+
+            int nouveauX = (int) Math.round(pos.x * facteurX);
+            int nouveauY = (int) Math.round(pos.y * facteurY);
+            int nouvelleLargeurMeuble = (int) Math.round(taille.width * facteurX);
+            int nouvelleHauteurMeuble = (int) Math.round(taille.height * facteurY);
+
+            meuble.setPosition(new Point(nouveauX, nouveauY));
+            meuble.setTaille(new Dimension(nouvelleLargeurMeuble, nouvelleHauteurMeuble));
+    }
+        
     }
 
     public void ajouterMeubleSansDrain(int x, int y, int largeur, int hauteur, TypeMeubleSansDrain type) {

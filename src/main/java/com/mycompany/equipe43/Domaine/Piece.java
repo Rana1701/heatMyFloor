@@ -49,7 +49,7 @@ public class Piece {
         this.largeur = largeur;
     }
     
-    public void redimensionner(int nouvelleLongueur, int nouvelleLargeur) {
+    public void redimensionner(int nouvelleLargeur, int nouvelleLongueur) {
         this.longueur = nouvelleLongueur;
         this.largeur = nouvelleLargeur;
     }

@@ -22,4 +22,13 @@ public class MeubleSansDrain {
     public TypeMeubleSansDrain getType() {
         return type;
     }
+    
+    public void setPosition(Point nouvellePosition) {
+    this.position = nouvellePosition;
+    }
+
+    public void setTaille(Dimension nouvelleTaille) {
+        this.taille = nouvelleTaille;
+    }
+
 }

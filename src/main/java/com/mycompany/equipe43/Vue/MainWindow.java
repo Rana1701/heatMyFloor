@@ -195,7 +195,7 @@ public MainWindow() {
             }
         });
 
-        largeurLabel1.setText("largeur");
+        largeurLabel1.setText("Longueur");
 
         longueur1.setText("500");
         longueur1.addActionListener(new java.awt.event.ActionListener() {
@@ -204,7 +204,7 @@ public MainWindow() {
             }
         });
 
-        longueurLabel1.setText("Longueur");
+        longueurLabel1.setText("Largeur");
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Type de Pièce");

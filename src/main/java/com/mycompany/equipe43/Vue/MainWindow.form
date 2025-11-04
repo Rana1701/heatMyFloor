@@ -498,7 +498,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="largeurLabel1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="largeur"/>
+                <Property name="text" type="java.lang.String" value="Longueur"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="longueur1">
@@ -511,7 +511,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="longueurLabel1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Longueur"/>
+                <Property name="text" type="java.lang.String" value="Largeur"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JSeparator" name="jSeparator3">
