@@ -59,6 +59,8 @@ public MainWindow() {
             meuble.getType(),
             meuble.getTaille().width,
             meuble.getTaille().height);
+        longueur2.setText(String.valueOf(meuble.getTaille().width));
+        largeur2.setText(String.valueOf(meuble.getTaille().height));
         // Afficher dans la console ou dans un label
         System.out.println(info);
     }
@@ -66,7 +68,6 @@ public MainWindow() {
     DrawingPanel.repaint();
     this.revalidate();  // Rafraîchit toute la fenêtre
 }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
