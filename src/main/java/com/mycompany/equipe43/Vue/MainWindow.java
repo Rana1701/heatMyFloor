@@ -15,6 +15,10 @@ import com.mycompany.equipe43.Domaine.MeubleSansDrain;
 import java.awt.FlowLayout;
 import javax.swing.JFrame;
 
+//import javax.swing.KeyStroke;
+//import java.awt.event.KeyEvent;
+//import java.awt.event.InputEvent;
+
 public class MainWindow extends javax.swing.JFrame {
 
     private Controleur controleur;
@@ -52,6 +56,7 @@ public MainWindow() {
         this.revalidate();  // Rafraîchit toute la fenêtre
     }
 
+<<<<<<< HEAD
     public void afficherMeubleSelectionne() {
     MeubleSansDrain meuble = controleur.getMeubleSelectionne();
     if (meuble != null) {
@@ -65,6 +70,8 @@ public MainWindow() {
 }
 
 
+=======
+>>>>>>> 218bd0d (Ajout des fonctionnalités Undo/Redo et intégration interface graphique)
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -102,9 +109,9 @@ public MainWindow() {
         jSeparator4 = new javax.swing.JSeparator();
         jButton5 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        fileMenu = new javax.swing.JMenu();
+        SaveProjectMenu = new javax.swing.JMenu();
         saveProject = new javax.swing.JMenuItem();
-        loadProject = new javax.swing.JMenuItem();
+        LoadProjectMenu = new javax.swing.JMenuItem();
         exportPNG = new javax.swing.JMenuItem();
         nouvellePiece = new javax.swing.JMenuItem();
         redimensionnerPiece = new javax.swing.JMenuItem();
@@ -112,8 +119,8 @@ public MainWindow() {
         zoomIn = new javax.swing.JMenuItem();
         zoomOut = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        undoMenu = new javax.swing.JMenuItem();
+        redoMenu = new javax.swing.JMenuItem();
         quitMenu = new javax.swing.JMenu();
         AjouterElementMenu = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -374,8 +381,8 @@ public MainWindow() {
         jMenuBar1.setBackground(new java.awt.Color(0, 0, 0));
         jMenuBar1.setForeground(new java.awt.Color(102, 102, 102));
 
-        fileMenu.setForeground(new java.awt.Color(255, 255, 255));
-        fileMenu.setText("File");
+        SaveProjectMenu.setForeground(new java.awt.Color(255, 255, 255));
+        SaveProjectMenu.setText("File");
 
         saveProject.setText("Save Project");
         saveProject.addActionListener(new java.awt.event.ActionListener() {
@@ -383,13 +390,13 @@ public MainWindow() {
                 saveProjectActionPerformed(evt);
             }
         });
-        fileMenu.add(saveProject);
+        SaveProjectMenu.add(saveProject);
 
-        loadProject.setText("Load Project");
-        fileMenu.add(loadProject);
+        LoadProjectMenu.setText("Load Project");
+        SaveProjectMenu.add(LoadProjectMenu);
 
         exportPNG.setText("Export PNG");
-        fileMenu.add(exportPNG);
+        SaveProjectMenu.add(exportPNG);
 
         nouvellePiece.setText("Nouvelle pièce");
         nouvellePiece.addActionListener(new java.awt.event.ActionListener() {
@@ -397,11 +404,11 @@ public MainWindow() {
                 nouvellePieceActionPerformed(evt);
             }
         });
-        fileMenu.add(nouvellePiece);
+        SaveProjectMenu.add(nouvellePiece);
 
         redimensionnerPiece.setText("Redimensionner pièce");
-        fileMenu.add(redimensionnerPiece);
-        fileMenu.add(jSeparator1);
+        SaveProjectMenu.add(redimensionnerPiece);
+        SaveProjectMenu.add(jSeparator1);
 
         zoomIn.setText("Zoom in");
         zoomIn.addActionListener(new java.awt.event.ActionListener() {
@@ -409,26 +416,31 @@ public MainWindow() {
                 zoomInActionPerformed(evt);
             }
         });
-        fileMenu.add(zoomIn);
+        SaveProjectMenu.add(zoomIn);
 
         zoomOut.setText("Zoom out");
-        fileMenu.add(zoomOut);
+        SaveProjectMenu.add(zoomOut);
 
-        jMenuBar1.add(fileMenu);
+        jMenuBar1.add(SaveProjectMenu);
 
         editMenu.setForeground(new java.awt.Color(255, 255, 255));
         editMenu.setText("Edit");
 
-        jMenuItem1.setText("undo");
-        editMenu.add(jMenuItem1);
-
-        jMenuItem2.setText("redo");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        undoMenu.setText("undo");
+        undoMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                undoMenuActionPerformed(evt);
             }
         });
-        editMenu.add(jMenuItem2);
+        editMenu.add(undoMenu);
+
+        redoMenu.setText("redo");
+        redoMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                redoMenuActionPerformed(evt);
+            }
+        });
+        editMenu.add(redoMenu);
 
         jMenuBar1.add(editMenu);
 
@@ -487,9 +499,10 @@ public MainWindow() {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    private void redoMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_redoMenuActionPerformed
+            controleur.redo();
+            DrawingPanel.repaint();
+    }//GEN-LAST:event_redoMenuActionPerformed
 
     private void saveProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveProjectActionPerformed
         // TODO add your handling code here:
@@ -618,6 +631,11 @@ public MainWindow() {
         longueur1.setText("300");
     }//GEN-LAST:event_nouvellePieceActionPerformed
 
+    private void undoMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_undoMenuActionPerformed
+        controleur.undo();
+        DrawingPanel.repaint();
+    }//GEN-LAST:event_undoMenuActionPerformed
+
      private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt){
         controleur.ajouterMeubleSansDrain(200, 100, 70, 70, TypeMeubleSansDrain.ARMOIRE);
         DrawingPanel.repaint();
@@ -642,14 +660,15 @@ public MainWindow() {
     private javax.swing.JPanel EditionPanel;
     private javax.swing.JButton Element1Piece;
     private javax.swing.JButton Element2Meuble;
+    private javax.swing.JMenuItem LoadProjectMenu;
     private javax.swing.JLabel ModeActive;
     private javax.swing.JComboBox<String> ModeApp;
     private javax.swing.JLabel NomElementSelectionne;
+    private javax.swing.JMenu SaveProjectMenu;
     private javax.swing.JLabel SelectionElements;
     private javax.swing.JMenu editMenu;
     private javax.swing.JLabel editionTailleElementSelectionne;
     private javax.swing.JMenuItem exportPNG;
-    private javax.swing.JMenu fileMenu;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
@@ -661,9 +680,7 @@ public MainWindow() {
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
@@ -678,7 +695,6 @@ public MainWindow() {
     private javax.swing.JTextField largeur2;
     private javax.swing.JLabel largeurLabel1;
     private javax.swing.JLabel largeurLabel2;
-    private javax.swing.JMenuItem loadProject;
     private javax.swing.JTextField longueur1;
     private javax.swing.JTextField longueur2;
     private javax.swing.JLabel longueurLabel1;
@@ -686,7 +702,9 @@ public MainWindow() {
     private javax.swing.JMenuItem nouvellePiece;
     private javax.swing.JMenu quitMenu;
     private javax.swing.JMenuItem redimensionnerPiece;
+    private javax.swing.JMenuItem redoMenu;
     private javax.swing.JMenuItem saveProject;
+    private javax.swing.JMenuItem undoMenu;
     private javax.swing.JMenuItem zoomIn;
     private javax.swing.JMenuItem zoomOut;
     // End of variables declaration//GEN-END:variables

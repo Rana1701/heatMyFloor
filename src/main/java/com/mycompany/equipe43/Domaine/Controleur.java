@@ -6,15 +6,57 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class Controleur {
     private Piece piece;
+<<<<<<< HEAD
     private MeubleSansDrain meubleSelectionne = null;
+=======
+    private Stack<Piece> undos = new Stack<>(); 
+    private Stack<Piece> redos = new Stack<>();
+>>>>>>> 218bd0d (Ajout des fonctionnalités Undo/Redo et intégration interface graphique)
 
     public Controleur() {
         this.piece = new Piece(320, 120, 300, 300); // Dimensions par défaut
     }
+
+    private Piece clonePiece(Piece original) {
+        Piece copie = new Piece(original.getX(), original.getY(), original.getLargeur(), original.getLongueur());
+
+        for (MeubleSansDrain meuble : original.getMeubles()) {
+            MeubleSansDrain clone = new MeubleSansDrain(
+                new Point(meuble.getPosition().x, meuble.getPosition().y),
+                new Dimension(meuble.getTaille().width, meuble.getTaille().height),
+                meuble.getType()
+            );
+            copie.ajouterMeuble(clone);
+        }
+
+        return copie;
+    }
+ 
+    private void sauvegarderEtat() {
+        undos.push(clonePiece(piece));
+        redos.clear(); // dès qu’on fait une nouvelle action, l’historique redo est invalidé
+    }
+
     
+    public void undo() {
+        if (!undos.isEmpty()) {
+            redos.push(clonePiece(piece));
+            piece = undos.pop();
+        }
+    }
+
+    public void redo() {
+        if (!redos.isEmpty()) {
+            undos.push(clonePiece(piece));
+            piece = redos.pop();
+        }
+    }
+   
+
     //Creation d'une pièce régulière
     public void creerPieceReguliere(int x, int y, int largeur, int longueur) {
     this.piece = new Piece(x, y, largeur, longueur);
@@ -28,9 +70,10 @@ public class Controleur {
     
     //redimensionner une pièce
     public void redimensionnerPiece(int nouvelleLargeur, int nouvelleLongueur) {
+        sauvegarderEtat();
         piece.redimensionner(nouvelleLongueur, nouvelleLargeur);
     }
-
+   
     public void ajouterMeubleSansDrain(int x, int y, int largeur, int hauteur, TypeMeubleSansDrain type) {
         int posX = piece.getX() + x;
         int posY = piece.getY() + y;
