@@ -3,6 +3,7 @@ package com.mycompany.equipe43.Vue;
 import com.mycompany.equipe43.Domaine.Controleur;
 import com.mycompany.equipe43.Vue.Drawing.Afficheur;
 import com.mycompany.equipe43.Domaine.DTO.PieceDTO;
+import com.mycompany.equipe43.Domaine.MeubleSansDrain;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -40,6 +41,11 @@ public class DrawingPanel extends JPanel {
         MouseAdapter mouseAdapter = new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
+                controleur.selectionnerMeuble(e.getX(), e.getY());
+                repaint();
+                if (mainWindow != null) {
+                    mainWindow.afficherMeubleSelectionne();
+                }
                 PieceDTO piece = controleur.getPiece();
                 if (piece == null) return;
                 
@@ -128,7 +134,17 @@ public class DrawingPanel extends JPanel {
         if (pieceDTO != null) {
             Afficheur.afficherPiece(g2, pieceDTO);
             Afficheur.afficherMeublesSansDrain(g2, pieceDTO);
+            MeubleSansDrain meubleSelectionne = controleur.getMeubleSelectionne();
+            if (meubleSelectionne != null) {
+                g2.setColor(Color.RED);
+                g2.setStroke(new BasicStroke(3));
+                g2.drawRect(
+                    meubleSelectionne.getPosition().x,
+                    meubleSelectionne.getPosition().y,
+                    meubleSelectionne.getTaille().width,
+                    meubleSelectionne.getTaille().height
+                );
+            }
         }
-
     }
 }

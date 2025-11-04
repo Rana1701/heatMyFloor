@@ -9,6 +9,7 @@ import java.util.List;
 
 public class Controleur {
     private Piece piece;
+    private MeubleSansDrain meubleSelectionne = null;
 
     public Controleur() {
         this.piece = new Piece(320, 120, 300, 300); // Dimensions par défaut
@@ -44,5 +45,30 @@ public class Controleur {
             meublesDTO.add(dto);
         }
         return new PieceDTO(piece.getX(), piece.getY(), piece.getLargeur(), piece.getLongueur(), meublesDTO);
+    }
+    
+    public void selectionnerMeuble(int x, int y) {
+        meubleSelectionne = null;
+        for (MeubleSansDrain meuble : piece.getMeubles()) {
+            int mx = meuble.getPosition().x;
+            int my = meuble.getPosition().y;
+            int mw = meuble.getTaille().width;
+            int mh = meuble.getTaille().height;
+            
+            if (x >= mx && x <= mx + mw && y >= my && y <= my + mh) {
+                meubleSelectionne = meuble;
+                break;
+            }
+        }
+    }
+
+// Obtenir le meuble sélectionné
+    public MeubleSansDrain getMeubleSelectionne() {
+        return meubleSelectionne;
+    }
+
+// Désélectionner le meuble
+    public void deselectionnerMeuble() {
+        meubleSelectionne = null;
     }
 }

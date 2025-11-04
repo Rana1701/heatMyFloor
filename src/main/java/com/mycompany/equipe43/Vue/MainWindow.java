@@ -10,6 +10,7 @@ import com.mycompany.equipe43.Domaine.Controleur;
 import com.mycompany.equipe43.Domaine.TypeMeubleSansDrain;
 import com.mycompany.equipe43.Domaine.DTO.PieceDTO;
 import java.awt.BorderLayout;
+import com.mycompany.equipe43.Domaine.MeubleSansDrain;
 
 import java.awt.FlowLayout;
 import javax.swing.JFrame;
@@ -51,6 +52,17 @@ public MainWindow() {
         this.revalidate();  // Rafraîchit toute la fenêtre
     }
 
+    public void afficherMeubleSelectionne() {
+    MeubleSansDrain meuble = controleur.getMeubleSelectionne();
+    if (meuble != null) {
+        String info = String.format("Meuble sélectionné: %s (Largeur: %d, Hauteur: %d)",
+            meuble.getType(),
+            meuble.getTaille().width,
+            meuble.getTaille().height);
+        // Afficher dans la console ou dans un label
+        System.out.println(info);
+    }
+}
 
 
     /**
