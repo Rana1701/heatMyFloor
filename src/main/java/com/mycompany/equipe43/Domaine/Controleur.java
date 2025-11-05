@@ -93,7 +93,32 @@ public class Controleur {
         return piece.supprimerMeubleParId(id);
 }
 
-    
+    //  redimensionner le meuble sélectionné (retourne false si rien n'est sélectionné)
+    public boolean redimensionnerMeubleSelectionne(int nouvelleLargeur, int nouvelleLongueur) {
+        if (meubleSelectionne == null) return false;
+        if (nouvelleLargeur <= 0 || nouvelleLongueur <= 0) return false;
+
+   
+        meubleSelectionne.setTaille(new Dimension(nouvelleLargeur, nouvelleLongueur));
+        return true;
+}
+
+//  redimensionner par id (utile si tu veux plus tard un formulaire par id)
+    public boolean redimensionnerMeubleParId(int id, int nouvelleLargeur, int nouvelleLongueur) {
+        for (MeubleSansDrain m : piece.getMeubles()) {
+            if (m.getId() == id) {
+               if (nouvelleLargeur <= 0 || nouvelleLongueur <= 0) return false;
+               m.setTaille(new Dimension(nouvelleLargeur, nouvelleLongueur));
+            // si c'était le sélectionné on garde la sélection cohérente
+               if (meubleSelectionne != null && meubleSelectionne.getId() == id) {
+                    meubleSelectionne = m;
+            }
+                return true;
+        }
+    }
+        return false;
+}
+
     public PieceDTO getPiece() {
         List<MeubleSansDrainDTO> meublesDTO = new ArrayList<>();
         for (MeubleSansDrain meuble : piece.getMeubles()) {

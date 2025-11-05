@@ -38,27 +38,64 @@ public MainWindow() {
         largeur1.setText(String.valueOf(pieceInitiale.getLargeur()));
         longueur1.setText(String.valueOf(pieceInitiale.getLongueur()));
     }
-        jMenuItem7.addActionListener(evt -> jMenuItem7ActionPerformed(evt));
-        javax.swing.JMenuItem supprimerSelection = new javax.swing.JMenuItem("Supprimer la sélection");
-    jMenu1.add(supprimerSelection);
+    jMenuItem7.addActionListener(evt -> jMenuItem7ActionPerformed(evt));
 
-    supprimerSelection.addActionListener(e -> {
-        boolean ok = controleur.supprimerMeubleSelectionne();
-        if (!ok) {
+// === Supprimer la sélection
+javax.swing.JMenuItem supprimerSelection = new javax.swing.JMenuItem("Supprimer la sélection");
+jMenu1.add(supprimerSelection);
+
+supprimerSelection.addActionListener(evt1 -> {
+    boolean suppressionOk = controleur.supprimerMeubleSelectionne();
+    if (!suppressionOk) {
+        javax.swing.JOptionPane.showMessageDialog(
+            this,
+            "Aucun meuble sélectionné.",
+            "Suppression",
+            javax.swing.JOptionPane.WARNING_MESSAGE
+        );
+        return;
+    }
+    NomElementSelectionne.setText("** ??? **");
+    longueur2.setText("");
+    largeur2.setText("");
+    DrawingPanel.repaint();
+}); // <-- IMPORTANT : on ferme bien le listener ici
+
+// === Redimensionner élément → Appliquer au sélectionné
+javax.swing.JMenuItem appliquerRedimension = new javax.swing.JMenuItem("Appliquer au sélectionné");
+jMenu4.add(appliquerRedimension);
+
+appliquerRedimension.addActionListener(evt2 -> {
+    try {
+        int nouvelleLargeur = Integer.parseInt(largeur2.getText().trim());
+        int nouvelleLongueur = Integer.parseInt(longueur2.getText().trim());
+
+        boolean resizeOk = controleur.redimensionnerMeubleSelectionne(nouvelleLargeur, nouvelleLongueur);
+        if (!resizeOk) {
             javax.swing.JOptionPane.showMessageDialog(
                 this,
-                "Aucun meuble sélectionné.",
-                "Suppression",
+                "Aucun meuble sélectionné ou valeurs invalides.",
+                "Redimensionnement",
                 javax.swing.JOptionPane.WARNING_MESSAGE
             );
             return;
         }
-        NomElementSelectionne.setText("** ??? **");
-        longueur2.setText("");
-        largeur2.setText("");
         DrawingPanel.repaint();
-    });
-}
+        afficherMeubleSelectionne();
+
+    } catch (NumberFormatException ex) {
+        javax.swing.JOptionPane.showMessageDialog(
+            this,
+            "Veuillez entrer des nombres valides pour largeur/longueur.",
+            "Erreur",
+            javax.swing.JOptionPane.ERROR_MESSAGE
+        );
+    }
+});
+
+// });
+    // });
+ }
 
 // Méthode publique pour mettre à jour les champs
     public void updateTailleFields() {
@@ -79,8 +116,9 @@ public MainWindow() {
             meuble.getType(),
             meuble.getTaille().width,
             meuble.getTaille().height);
-        longueur2.setText(String.valueOf(meuble.getTaille().width));
-        largeur2.setText(String.valueOf(meuble.getTaille().height));
+        largeur2.setText(String.valueOf(meuble.getTaille().width));   // largeur ← width
+        longueur2.setText(String.valueOf(meuble.getTaille().height)); // longueur ← height
+
         // Afficher dans la console ou dans un label
         System.out.println(info);
     }
@@ -98,6 +136,7 @@ public MainWindow() {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenu3 = new javax.swing.JMenu();
         ButtonTopPanel = new javax.swing.JPanel(new FlowLayout(FlowLayout.LEFT));
         ModeActive = new javax.swing.JLabel();
         ModeApp = new javax.swing.JComboBox<>();
@@ -152,6 +191,9 @@ public MainWindow() {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
+
+        jMenu3.setText("jMenu3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(102, 102, 102));
@@ -217,7 +259,7 @@ public MainWindow() {
             }
         });
 
-        largeurLabel1.setText("Longueur");
+        largeurLabel1.setText("Largeur");
 
         longueur1.setText("500");
         longueur1.addActionListener(new java.awt.event.ActionListener() {
@@ -226,7 +268,7 @@ public MainWindow() {
             }
         });
 
-        longueurLabel1.setText("Largeur");
+        longueurLabel1.setText("Longueur");
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Type de Pièce");
@@ -510,6 +552,9 @@ public MainWindow() {
         jMenu1.setText("Supprimer element");
         jMenuBar1.add(jMenu1);
 
+        jMenu4.setText("Redimensionner element");
+        jMenuBar1.add(jMenu4);
+
         setJMenuBar(jMenuBar1);
 
         pack();
@@ -582,6 +627,31 @@ public MainWindow() {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        try {
+        int nouvelleLargeur = Integer.parseInt(largeur2.getText().trim());
+        int nouvelleLongueur = Integer.parseInt(longueur2.getText().trim());
+
+        boolean ok = controleur.redimensionnerMeubleSelectionne(nouvelleLargeur, nouvelleLongueur);
+        if (!ok) {
+            javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "Aucun meuble sélectionné ou valeurs invalides.",
+                "Redimensionnement",
+                javax.swing.JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+        DrawingPanel.repaint();
+        afficherMeubleSelectionne();
+
+    } catch (NumberFormatException ex) {
+        javax.swing.JOptionPane.showMessageDialog(
+            this,
+            "Veuillez entrer des nombres valides pour largeur/longueur.",
+            "Erreur",
+            javax.swing.JOptionPane.ERROR_MESSAGE
+        );
+    }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void largeur2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_largeur2ActionPerformed
@@ -689,6 +759,8 @@ public MainWindow() {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
