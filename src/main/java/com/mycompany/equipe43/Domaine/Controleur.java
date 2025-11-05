@@ -22,7 +22,7 @@ public class Controleur {
         Piece copie = new Piece(original.getX(), original.getY(), original.getLargeur(), original.getLongueur());
 
         for (MeubleSansDrain meuble : original.getMeubles()) {
-            MeubleSansDrain clone = new MeubleSansDrain(
+            MeubleSansDrain clone = new MeubleSansDrain(meuble.getId() ,
                 new Point(meuble.getPosition().x, meuble.getPosition().y),
                 new Dimension(meuble.getTaille().width, meuble.getTaille().height),
                 meuble.getType()
@@ -67,21 +67,106 @@ public class Controleur {
     
     //redimensionner une pièce
     public void redimensionnerPiece(int nouvelleLargeur, int nouvelleLongueur) {
+
         sauvegarderEtat();
         piece.redimensionner(nouvelleLongueur, nouvelleLargeur);
+
+        //piece.redimensionner(nouvelleLongueur, nouvelleLargeur);
+        if (piece == null) return;
+
+        // Calcul du facteur d'échelle
+        double facteurX = (double) nouvelleLargeur / piece.getLargeur();
+        double facteurY = (double) nouvelleLongueur / piece.getLongueur();
+
+        // Redimensionner la pièce
+        piece.redimensionner(nouvelleLargeur, nouvelleLongueur);
+
+        // Adapter la position et la taille de chaque meuble
+        for (MeubleSansDrain meuble : piece.getMeubles()) {
+            Point pos = meuble.getPosition();
+            Dimension taille = meuble.getTaille();
+
+            int nouveauX = (int) Math.round(pos.x * facteurX);
+            int nouveauY = (int) Math.round(pos.y * facteurY);
+            int nouvelleLargeurMeuble = (int) Math.round(taille.width * facteurX);
+            int nouvelleHauteurMeuble = (int) Math.round(taille.height * facteurY);
+
+            meuble.setPosition(new Point(nouveauX, nouveauY));
+            meuble.setTaille(new Dimension(nouvelleLargeurMeuble, nouvelleHauteurMeuble));
+    }
+        
+
     }
    
     public void ajouterMeubleSansDrain(int x, int y, int largeur, int hauteur, TypeMeubleSansDrain type) {
-        int posX = piece.getX() + x;
-        int posY = piece.getY() + y;
-        MeubleSansDrain meuble = new MeubleSansDrain(new Point(posX, posY), new Dimension(largeur, hauteur), type);
-        piece.ajouterMeuble(meuble);
+    // combien de meubles existent déjà ?
+    int count = piece.getMeubles().size();             
+
+    // décalage automatique pour éviter la superposition
+    int offset = 15 * count;                          
+
+    // position de base + décalage
+    int posX = piece.getX() + x + offset;              
+    int posY = piece.getY() + y + offset;              
+
+    // id “simple”
+    int newId = count + 1;
+    MeubleSansDrain meuble = new MeubleSansDrain(newId, new Point(posX, posY), new Dimension(largeur, hauteur), type);
+    piece.ajouterMeuble(meuble);
+    
+    System.out.println("Meubles dans la pièce: " + piece.getMeubles().size());
+
+    // (alternative propre si tu as Piece.ajouterMeuble(Point,Dimension,Type) avec nextId++):
+    // piece.ajouterMeuble(new Point(posX, posY), new Dimension(largeur, hauteur), type);
+}
+
+    //  supprimer le meuble sélectionné (si aucun → false)
+    public boolean supprimerMeubleSelectionne() {
+        if (meubleSelectionne == null) return false;
+        boolean ok = piece.supprimerMeubleParId(meubleSelectionne.getId());
+        meubleSelectionne = null;
+        return ok;
+}
+
+//  supprimer un meuble par id
+    public boolean supprimerMeubleParId(int id) {
+    // si on supprime celui qui est sélectionné, on désélectionne
+        if (meubleSelectionne != null && meubleSelectionne.getId() == id) {
+            meubleSelectionne = null;
+        }
+        return piece.supprimerMeubleParId(id);
+}
+
+    //  redimensionner le meuble sélectionné (retourne false si rien n'est sélectionné)
+    public boolean redimensionnerMeubleSelectionne(int nouvelleLargeur, int nouvelleLongueur) {
+        if (meubleSelectionne == null) return false;
+        if (nouvelleLargeur <= 0 || nouvelleLongueur <= 0) return false;
+
+   
+        meubleSelectionne.setTaille(new Dimension(nouvelleLargeur, nouvelleLongueur));
+        return true;
+}
+
+//  redimensionner par id (utile si tu veux plus tard un formulaire par id)
+    public boolean redimensionnerMeubleParId(int id, int nouvelleLargeur, int nouvelleLongueur) {
+        for (MeubleSansDrain m : piece.getMeubles()) {
+            if (m.getId() == id) {
+               if (nouvelleLargeur <= 0 || nouvelleLongueur <= 0) return false;
+               m.setTaille(new Dimension(nouvelleLargeur, nouvelleLongueur));
+            // si c'était le sélectionné on garde la sélection cohérente
+               if (meubleSelectionne != null && meubleSelectionne.getId() == id) {
+                    meubleSelectionne = m;
+            }
+                return true;
+        }
     }
+        return false;
+}
 
     public PieceDTO getPiece() {
         List<MeubleSansDrainDTO> meublesDTO = new ArrayList<>();
         for (MeubleSansDrain meuble : piece.getMeubles()) {
-            MeubleSansDrainDTO dto = new MeubleSansDrainDTO(meuble.getPosition(), meuble.getTaille(), meuble.getType());
+            MeubleSansDrainDTO dto = new MeubleSansDrainDTO(meuble.getId(), meuble.getPosition(), meuble.getTaille(), meuble.getType());
             meublesDTO.add(dto);
         }
         return new PieceDTO(piece.getX(), piece.getY(), piece.getLargeur(), piece.getLongueur(), meublesDTO);
@@ -99,6 +184,7 @@ public class Controleur {
                 meubleSelectionne = meuble;
                 break;
             }
+            
         }
     }
 

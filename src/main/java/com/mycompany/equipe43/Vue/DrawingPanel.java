@@ -3,6 +3,14 @@ package com.mycompany.equipe43.Vue;
 import com.mycompany.equipe43.Domaine.Controleur;
 import com.mycompany.equipe43.Vue.Drawing.Afficheur;
 import com.mycompany.equipe43.Domaine.DTO.PieceDTO;
+// (Optionnel, uniquement si tu fais le surlignage DTO-only)
+// import com.mycompany.equipe43.Domaine.DTO.MeubleSansDrainDTO;
+
+import javax.swing.AbstractAction;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import javax.swing.KeyStroke;
+
 import com.mycompany.equipe43.Domaine.MeubleSansDrain;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -26,9 +34,22 @@ public class DrawingPanel extends JPanel {
     public DrawingPanel(Controleur controleur) {
         this.controleur = controleur;
         setupMouseListeners();
-
+        setFocusable(true);
+        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), "deleteSel");
+        getActionMap().put("deleteSel", new AbstractAction() {
+            @Override public void actionPerformed(ActionEvent e) {
+                if (controleur.supprimerMeubleSelectionne()) {
+                     repaint();
+                    if (mainWindow != null) mainWindow.afficherMeubleSelectionne();
+        }
     }
-    //Constructeur secondaire pour test
+});
+      
+                
+                
+    }
+
+    // Constructeur secondaire pour test
     public DrawingPanel() {
         this(new Controleur()); // crée un contrôleur temporaire par défaut
     }
@@ -49,7 +70,7 @@ public class DrawingPanel extends JPanel {
                 PieceDTO piece = controleur.getPiece();
                 if (piece == null) return;
                 
-                // Vérifie si on clique sur la poignée (coin bas-droite)
+                // Vérifie si on clique sur la poignée (coin bas-droite) de la pièce
                 int coinX = piece.getX() + piece.getLargeur();
                 int coinY = piece.getY() + piece.getLongueur();
                 
@@ -83,7 +104,6 @@ public class DrawingPanel extends JPanel {
                     if (mainWindow != null) {
                         mainWindow.updateTailleFields();
                     }
-                    
                 }
             }
             
@@ -127,6 +147,7 @@ public class DrawingPanel extends JPanel {
         for (int y = 0; y < getHeight(); y += cellSize) {
             g.drawLine(0, y, getWidth(), y);
         }
+
         Graphics2D g2 = (Graphics2D) g;
 
         // Appel à l'afficheur
@@ -134,6 +155,8 @@ public class DrawingPanel extends JPanel {
         if (pieceDTO != null) {
             Afficheur.afficherPiece(g2, pieceDTO);
             Afficheur.afficherMeublesSansDrain(g2, pieceDTO);
+
+            // --- Version actuelle (objet de domaine) ---
             MeubleSansDrain meubleSelectionne = controleur.getMeubleSelectionne();
             if (meubleSelectionne != null) {
                 g2.setColor(Color.RED);
@@ -145,6 +168,25 @@ public class DrawingPanel extends JPanel {
                     meubleSelectionne.getTaille().height
                 );
             }
+
+            // --- (Optionnel) Version DTO-only ---
+            // Integer sel = controleur.getIdSelectionne();
+            // if (sel != null) {
+            //     for (MeubleSansDrainDTO m : pieceDTO.getMeubles()) {
+            //         if (m.getId() == sel) {
+            //             g2.setColor(Color.RED);
+            //             g2.setStroke(new BasicStroke(3));
+            //             g2.drawRect(
+            //                 m.getPosition().x,
+            //                 m.getPosition().y,
+            //                 m.getTaille().width,
+            //                 m.getTaille().height
+            //             );
+            //             break;
+            //         }
+            //     }
+            // }
         }
     }
 }
+

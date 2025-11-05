@@ -3,6 +3,8 @@ package com.mycompany.equipe43.Domaine;
 import com.mycompany.equipe43.Domaine.MeubleSansDrain;
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.Point;
+import java.awt.Dimension;
 
 public class Piece {
     private int x = 0;
@@ -10,7 +12,7 @@ public class Piece {
     private int largeur;
     private int longueur;
     private List<MeubleSansDrain> meubles = new ArrayList<>();
-
+    private int nextId = 1;
     public Piece(int x, int y, int largeur, int longueur) {
         this.x = x;
         this.y = y;
@@ -49,7 +51,7 @@ public class Piece {
         this.largeur = largeur;
     }
     
-    public void redimensionner(int nouvelleLongueur, int nouvelleLargeur) {
+    public void redimensionner(int nouvelleLargeur, int nouvelleLongueur) {
         this.longueur = nouvelleLongueur;
         this.largeur = nouvelleLargeur;
     }
@@ -57,4 +59,25 @@ public class Piece {
     public void ajouterMeuble(MeubleSansDrain meuble) {
         meubles.add(meuble);
     }
+    public MeubleSansDrain ajouterMeuble(Point pos, Dimension dim, TypeMeubleSansDrain type) {
+        MeubleSansDrain m = new MeubleSansDrain(nextId++, pos, dim, type);
+        meubles.add(m);
+        return m;
+    }
+    
+    public MeubleSansDrain trouverParId(int id) {
+       for (MeubleSansDrain m : meubles) if (m.getId() == id) return m;
+        return null;
+}
+
+
+    public boolean supprimerMeubleParId(int id) {
+      return meubles.removeIf(m -> m.getId() == id);
+}
+
+
+    public boolean supprimerMeuble(MeubleSansDrain m) {
+      return meubles.remove(m);
+}
+
 }
