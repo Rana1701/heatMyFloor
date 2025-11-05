@@ -45,7 +45,7 @@ public MainWindow() {
     jMenuItem7.addActionListener(evt -> jMenuItem7ActionPerformed(evt));
 
 // === Supprimer la sélection
-javax.swing.JMenuItem supprimerSelection = new javax.swing.JMenuItem("Supprimer la sélection");
+/* javax.swing.JMenuItem supprimerSelection = new javax.swing.JMenuItem("Supprimer la sélection");
 menuSupprimerElement.add(supprimerSelection);
 
 supprimerSelection.addActionListener(evt1 -> {
@@ -69,7 +69,7 @@ supprimerSelection.addActionListener(evt1 -> {
 //javax.swing.JMenuItem appliquerRedimension = new javax.swing.JMenuItem("Appliquer au sélectionné");
 //jMenu4.add(appliquerRedimension);
 
-/* appliquerRedimension.addActionListener(evt2 -> {
+appliquerRedimension.addActionListener(evt2 -> {
     try {
         int nouvelleLargeur = Integer.parseInt(largeur2.getText().trim());
         int nouvelleLongueur = Integer.parseInt(longueur2.getText().trim());
@@ -200,7 +200,6 @@ supprimerSelection.addActionListener(evt1 -> {
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
-        menuSupprimerElement = new javax.swing.JMenu();
 
         jMenu3.setText("jMenu3");
 
@@ -588,9 +587,6 @@ supprimerSelection.addActionListener(evt1 -> {
 
         jMenuBar1.add(AjouterElementMenu);
 
-        menuSupprimerElement.setText("Supprimer element");
-        jMenuBar1.add(menuSupprimerElement);
-
         setJMenuBar(jMenuBar1);
 
         pack();
@@ -785,7 +781,25 @@ supprimerSelection.addActionListener(evt1 -> {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void buttonSupprimerElementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSupprimerElementActionPerformed
-        // TODO add your handling code here:
+         boolean ok = controleur.supprimerMeubleSelectionne();
+    if (!ok) {
+        javax.swing.JOptionPane.showMessageDialog(
+            this,
+            "Aucun meuble sélectionné.",
+            "Suppression",
+            javax.swing.JOptionPane.WARNING_MESSAGE
+        );
+        return;
+    }
+
+    // Nettoie l’UI
+    NomElementSelectionne.setText("** ??? **");
+    largeur2.setText("");
+    longueur2.setText("");
+    AxeX.setText("0");
+    AxeY.setText("0");
+
+    oldDrawingPanel.repaint();
     }//GEN-LAST:event_buttonSupprimerElementActionPerformed
 
      private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt){
@@ -855,7 +869,6 @@ supprimerSelection.addActionListener(evt1 -> {
     private javax.swing.JTextField longueur2;
     private javax.swing.JLabel longueurLabel1;
     private javax.swing.JLabel longueurLabel2;
-    private javax.swing.JMenu menuSupprimerElement;
     private javax.swing.JMenuItem nouvellePiece;
     private javax.swing.JPanel oldDrawingPanel;
     private javax.swing.JMenu quitMenu;
