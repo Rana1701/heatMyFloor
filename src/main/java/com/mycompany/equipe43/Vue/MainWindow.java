@@ -123,7 +123,8 @@ appliquerRedimension.addActionListener(evt2 -> {
             meuble.getTaille().height);
         largeur2.setText(String.valueOf(meuble.getTaille().width));   // largeur ← width
         longueur2.setText(String.valueOf(meuble.getTaille().height)); // longueur ← height
-
+        AxeX.setText(String.valueOf(meuble.getPosition().x));
+        AxeY.setText(String.valueOf(meuble.getPosition().y));
         // Afficher dans la console ou dans un label
         System.out.println(info);
     }
@@ -169,6 +170,11 @@ appliquerRedimension.addActionListener(evt2 -> {
         largeurLabel2 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
         jButton5 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        AxeX = new javax.swing.JTextField();
+        AxeY = new javax.swing.JTextField();
+        jButtonDeplacer = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         SaveProjectMenu = new javax.swing.JMenu();
         saveProject = new javax.swing.JMenuItem();
@@ -319,6 +325,26 @@ appliquerRedimension.addActionListener(evt2 -> {
             }
         });
 
+        jLabel2.setText("Axe X");
+
+        jLabel3.setText("Axe Y");
+
+        AxeX.setText("0");
+        AxeX.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AxeXActionPerformed(evt);
+            }
+        });
+
+        AxeY.setText("0");
+
+        jButtonDeplacer.setText("Déplacer le meuble");
+        jButtonDeplacer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeplacerActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout EditionPanelLayout = new javax.swing.GroupLayout(EditionPanel);
         EditionPanel.setLayout(EditionPanelLayout);
         EditionPanelLayout.setHorizontalGroup(
@@ -327,6 +353,26 @@ appliquerRedimension.addActionListener(evt2 -> {
                 .addContainerGap()
                 .addGroup(EditionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(SelectionElements, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(EditionPanelLayout.createSequentialGroup()
+                        .addGroup(EditionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(EditionPanelLayout.createSequentialGroup()
+                                .addComponent(largeur1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(longueur1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(EditionPanelLayout.createSequentialGroup()
+                                .addGroup(EditionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(AxeX, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(EditionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(AxeY, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(EditionPanelLayout.createSequentialGroup()
                         .addGroup(EditionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(EditionPanelLayout.createSequentialGroup()
@@ -363,20 +409,9 @@ appliquerRedimension.addActionListener(evt2 -> {
                                         .addComponent(longueur2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
-                    .addGroup(EditionPanelLayout.createSequentialGroup()
-                        .addGroup(EditionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(EditionPanelLayout.createSequentialGroup()
-                                .addComponent(largeur1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(longueur1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jButtonDeplacer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         EditionPanelLayout.setVerticalGroup(
             EditionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -415,15 +450,25 @@ appliquerRedimension.addActionListener(evt2 -> {
                     .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton4)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(EditionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addGap(5, 5, 5)
+                .addGroup(EditionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(AxeX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(AxeY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonDeplacer)
+                .addGap(2, 2, 2)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SelectionElements, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Element1Piece)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Element2Meuble)
-                .addGap(66, 66, 66))
+                .addGap(23, 23, 23))
         );
 
         javax.swing.GroupLayout DrawingPanelLayout = new javax.swing.GroupLayout(DrawingPanel);
@@ -732,6 +777,37 @@ appliquerRedimension.addActionListener(evt2 -> {
         DrawingPanel.repaint();
     }//GEN-LAST:event_undoMenuActionPerformed
 
+    private void AxeXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AxeXActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AxeXActionPerformed
+
+    private void jButtonDeplacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeplacerActionPerformed
+        try {
+                int nouvelX = Integer.parseInt(AxeX.getText().trim());
+                int nouvelY = Integer.parseInt(AxeY.getText().trim());
+
+                boolean ok = controleur.deplacerMeubleSelectionne(nouvelX, nouvelY);
+                if (!ok) {
+                    javax.swing.JOptionPane.showMessageDialog(
+                        this,
+                        "Aucun meuble sélectionné.",
+                        "Déplacement",
+                        javax.swing.JOptionPane.WARNING_MESSAGE
+                    );
+                    return;
+                }
+                DrawingPanel.repaint();
+
+            } catch (NumberFormatException ex) {
+                javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "Veuillez entrer des nombres valides pour X et Y.",
+                    "Erreur",
+                    javax.swing.JOptionPane.ERROR_MESSAGE
+                );
+            }        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonDeplacerActionPerformed
+
      private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt){
         controleur.ajouterMeubleSansDrain(200, 100, 70, 70, TypeMeubleSansDrain.ARMOIRE);
         DrawingPanel.repaint();
@@ -753,6 +829,8 @@ appliquerRedimension.addActionListener(evt2 -> {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu AjouterElementMenu;
+    private javax.swing.JTextField AxeX;
+    private javax.swing.JTextField AxeY;
     private javax.swing.JPanel ButtonTopPanel;
     private javax.swing.JPanel DrawingPanel;
     private javax.swing.JPanel EditionPanel;
@@ -770,10 +848,13 @@ appliquerRedimension.addActionListener(evt2 -> {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButtonDeplacer;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JComboBox<String> jComboBox5;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

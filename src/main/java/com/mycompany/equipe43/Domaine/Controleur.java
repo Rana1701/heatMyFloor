@@ -197,4 +197,12 @@ public class Controleur {
     public void deselectionnerMeuble() {
         meubleSelectionne = null;
     }
+
+    public boolean deplacerMeubleSelectionne(int nouvelX, int nouvelY) {
+        if (meubleSelectionne == null) {
+            return false;
+        }
+        meubleSelectionne.setPosition(new Point(nouvelX, nouvelY));
+        return true;
+    }    
 }
