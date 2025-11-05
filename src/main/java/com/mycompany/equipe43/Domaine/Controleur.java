@@ -69,7 +69,7 @@ public class Controleur {
     public void redimensionnerPiece(int nouvelleLargeur, int nouvelleLongueur) {
 
         sauvegarderEtat();
-        piece.redimensionner(nouvelleLongueur, nouvelleLargeur);
+        //piece.redimensionner(nouvelleLongueur, nouvelleLargeur);
 
         //piece.redimensionner(nouvelleLongueur, nouvelleLargeur);
         if (piece == null) return;
@@ -92,7 +92,7 @@ public class Controleur {
             int nouvelleHauteurMeuble = (int) Math.round(taille.height * facteurY);
 
             meuble.setPosition(new Point(nouveauX, nouveauY));
-            meuble.setTaille(new Dimension(nouvelleLargeurMeuble, nouvelleHauteurMeuble));
+            //meuble.setTaille(new Dimension(nouvelleLargeurMeuble, nouvelleHauteurMeuble));
     }
         
 
