@@ -55,16 +55,32 @@ public class Controleur {
     }
 
     public void ajouterMeubleSansDrain(int x, int y, int largeur, int hauteur, TypeMeubleSansDrain type) {
-        int posX = piece.getX() + x;
-        int posY = piece.getY() + y;
-        MeubleSansDrain meuble = new MeubleSansDrain(new Point(posX, posY), new Dimension(largeur, hauteur), type);
-        piece.ajouterMeuble(meuble);
-    }
+    // combien de meubles existent déjà ?
+    int count = piece.getMeubles().size();             // AJOUT
+
+    // décalage automatique pour éviter la superposition
+    int offset = 15 * count;                           // AJOUT (ajuste si tu veux plus/moins d’écart)
+
+    // position de base + décalage
+    int posX = piece.getX() + x + offset;              // CHANGÉ: + offset
+    int posY = piece.getY() + y + offset;              // CHANGÉ: + offset (ou laisse sans offset en Y si tu préfères)
+
+    // id “simple”
+    int newId = count + 1;
+    MeubleSansDrain meuble = new MeubleSansDrain(newId, new Point(posX, posY), new Dimension(largeur, hauteur), type);
+    piece.ajouterMeuble(meuble);
+    
+    System.out.println("Meubles dans la pièce: " + piece.getMeubles().size());
+
+    // (alternative propre si tu as Piece.ajouterMeuble(Point,Dimension,Type) avec nextId++):
+    // piece.ajouterMeuble(new Point(posX, posY), new Dimension(largeur, hauteur), type);
+}
+
 
     public PieceDTO getPiece() {
         List<MeubleSansDrainDTO> meublesDTO = new ArrayList<>();
         for (MeubleSansDrain meuble : piece.getMeubles()) {
-            MeubleSansDrainDTO dto = new MeubleSansDrainDTO(meuble.getPosition(), meuble.getTaille(), meuble.getType());
+            MeubleSansDrainDTO dto = new MeubleSansDrainDTO(meuble.getId(), meuble.getPosition(), meuble.getTaille(), meuble.getType());
             meublesDTO.add(dto);
         }
         return new PieceDTO(piece.getX(), piece.getY(), piece.getLargeur(), piece.getLongueur(), meublesDTO);

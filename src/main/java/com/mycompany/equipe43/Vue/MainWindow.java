@@ -24,7 +24,7 @@ public MainWindow() {
 
     initComponents();
     controleur = new Controleur();
-    DrawingPanel drawing = new DrawingPanel(controleur);
+    drawing = new DrawingPanel(controleur);
     drawing.setBackground(new java.awt.Color(51, 51, 51));
     DrawingPanel.setLayout(new BorderLayout());
     DrawingPanel.add(drawing, BorderLayout.CENTER);
@@ -133,6 +133,7 @@ public MainWindow() {
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(102, 102, 102));
@@ -488,6 +489,9 @@ public MainWindow() {
 
         jMenuBar1.add(AjouterElementMenu);
 
+        jMenu1.setText("Supprimer element");
+        jMenuBar1.add(jMenu1);
+
         setJMenuBar(jMenuBar1);
 
         pack();
@@ -634,12 +638,14 @@ public MainWindow() {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        JFrame frame = new JFrame("Grille");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 400); // ça c la taille de ma fenêtre
-        frame.add(new DrawingPanel());
-        frame.setVisible(true); // affiche la fenêtre
-
+       // JFrame frame = new JFrame("Grille");
+        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //frame.setSize(400, 400); // ça c la taille de ma fenêtre
+        //frame.add(new DrawingPanel());
+        //frame.setVisible(true); // affiche la fenêtre
+          java.awt.EventQueue.invokeLater(() -> {
+            new MainWindow().setVisible(true); // FIX
+        });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu AjouterElementMenu;
@@ -663,6 +669,7 @@ public MainWindow() {
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JComboBox<String> jComboBox5;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenu jMenu9;
