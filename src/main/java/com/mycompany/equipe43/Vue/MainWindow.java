@@ -21,7 +21,7 @@ public class MainWindow extends javax.swing.JFrame {
     private DrawingPanel drawing;
 
 public MainWindow() {
-
+    
     initComponents();
     controleur = new Controleur();
     drawing = new DrawingPanel(controleur);
@@ -39,7 +39,25 @@ public MainWindow() {
         longueur1.setText(String.valueOf(pieceInitiale.getLongueur()));
     }
         jMenuItem7.addActionListener(evt -> jMenuItem7ActionPerformed(evt));
+        javax.swing.JMenuItem supprimerSelection = new javax.swing.JMenuItem("Supprimer la sélection");
+    jMenu1.add(supprimerSelection);
 
+    supprimerSelection.addActionListener(e -> {
+        boolean ok = controleur.supprimerMeubleSelectionne();
+        if (!ok) {
+            javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "Aucun meuble sélectionné.",
+                "Suppression",
+                javax.swing.JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+        NomElementSelectionne.setText("** ??? **");
+        longueur2.setText("");
+        largeur2.setText("");
+        DrawingPanel.repaint();
+    });
 }
 
 // Méthode publique pour mettre à jour les champs

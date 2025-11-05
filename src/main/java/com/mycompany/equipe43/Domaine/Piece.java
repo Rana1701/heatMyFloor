@@ -64,4 +64,20 @@ public class Piece {
         meubles.add(m);
         return m;
     }
+    
+    public MeubleSansDrain trouverParId(int id) {
+       for (MeubleSansDrain m : meubles) if (m.getId() == id) return m;
+        return null;
+}
+
+
+    public boolean supprimerMeubleParId(int id) {
+      return meubles.removeIf(m -> m.getId() == id);
+}
+
+
+    public boolean supprimerMeuble(MeubleSansDrain m) {
+      return meubles.remove(m);
+}
+
 }

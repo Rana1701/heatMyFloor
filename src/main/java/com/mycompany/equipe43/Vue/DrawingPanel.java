@@ -6,6 +6,11 @@ import com.mycompany.equipe43.Domaine.DTO.PieceDTO;
 // (Optionnel, uniquement si tu fais le surlignage DTO-only)
 // import com.mycompany.equipe43.Domaine.DTO.MeubleSansDrainDTO;
 
+import javax.swing.AbstractAction;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import javax.swing.KeyStroke;
+
 import com.mycompany.equipe43.Domaine.MeubleSansDrain;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -29,6 +34,19 @@ public class DrawingPanel extends JPanel {
     public DrawingPanel(Controleur controleur) {
         this.controleur = controleur;
         setupMouseListeners();
+        setFocusable(true);
+        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), "deleteSel");
+        getActionMap().put("deleteSel", new AbstractAction() {
+            @Override public void actionPerformed(ActionEvent e) {
+                if (controleur.supprimerMeubleSelectionne()) {
+                     repaint();
+                    if (mainWindow != null) mainWindow.afficherMeubleSelectionne();
+        }
+    }
+});
+      
+                
+                
     }
 
     // Constructeur secondaire pour test
