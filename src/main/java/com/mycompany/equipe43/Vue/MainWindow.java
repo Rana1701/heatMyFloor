@@ -30,10 +30,10 @@ public MainWindow() {
     controleur = new Controleur();
     drawing = new DrawingPanel(controleur);
     drawing.setBackground(new java.awt.Color(51, 51, 51));
-    DrawingPanel.setLayout(new BorderLayout());
-    DrawingPanel.add(drawing, BorderLayout.CENTER);
-    DrawingPanel.revalidate();
-    DrawingPanel.repaint();
+    oldDrawingPanel.setLayout(new BorderLayout());
+    oldDrawingPanel.add(drawing, BorderLayout.CENTER);
+    oldDrawingPanel.revalidate();
+    oldDrawingPanel.repaint();
     drawing.setMainWindow(this);
     // Initialiser les champs avec les dimensions de la pièce par défaut
     PieceDTO pieceInitiale = controleur.getPiece();
@@ -46,7 +46,7 @@ public MainWindow() {
 
 // === Supprimer la sélection
 javax.swing.JMenuItem supprimerSelection = new javax.swing.JMenuItem("Supprimer la sélection");
-jMenu1.add(supprimerSelection);
+menuSupprimerElement.add(supprimerSelection);
 
 supprimerSelection.addActionListener(evt1 -> {
     boolean suppressionOk = controleur.supprimerMeubleSelectionne();
@@ -62,14 +62,14 @@ supprimerSelection.addActionListener(evt1 -> {
     NomElementSelectionne.setText("** ??? **");
     longueur2.setText("");
     largeur2.setText("");
-    DrawingPanel.repaint();
+    oldDrawingPanel.repaint();
 }); // <-- IMPORTANT : on ferme bien le listener ici
 
 // === Redimensionner élément → Appliquer au sélectionné
-javax.swing.JMenuItem appliquerRedimension = new javax.swing.JMenuItem("Appliquer au sélectionné");
-jMenu4.add(appliquerRedimension);
+//javax.swing.JMenuItem appliquerRedimension = new javax.swing.JMenuItem("Appliquer au sélectionné");
+//jMenu4.add(appliquerRedimension);
 
-appliquerRedimension.addActionListener(evt2 -> {
+/* appliquerRedimension.addActionListener(evt2 -> {
     try {
         int nouvelleLargeur = Integer.parseInt(largeur2.getText().trim());
         int nouvelleLongueur = Integer.parseInt(longueur2.getText().trim());
@@ -84,7 +84,7 @@ appliquerRedimension.addActionListener(evt2 -> {
             );
             return;
         }
-        DrawingPanel.repaint();
+        oldDrawingPanel.repaint();
         afficherMeubleSelectionne();
 
     } catch (NumberFormatException ex) {
@@ -99,7 +99,10 @@ appliquerRedimension.addActionListener(evt2 -> {
 
 // });
     // });
- }
+*/
+}
+
+
 
 // Méthode publique pour mettre à jour les champs
     public void updateTailleFields() {
@@ -108,8 +111,8 @@ appliquerRedimension.addActionListener(evt2 -> {
             largeur1.setText(String.valueOf(piece.getLargeur()));
             longueur1.setText(String.valueOf(piece.getLongueur()));
         }
-        DrawingPanel.revalidate();
-        DrawingPanel.repaint();
+        oldDrawingPanel.revalidate();
+        oldDrawingPanel.repaint();
         this.revalidate();  // Rafraîchit toute la fenêtre
     }
 
@@ -128,8 +131,8 @@ appliquerRedimension.addActionListener(evt2 -> {
         // Afficher dans la console ou dans un label
         System.out.println(info);
     }
-    DrawingPanel.revalidate();
-    DrawingPanel.repaint();
+    oldDrawingPanel.revalidate();
+    oldDrawingPanel.repaint();
     this.revalidate();  // Rafraîchit toute la fenêtre
 }
 
@@ -146,13 +149,10 @@ appliquerRedimension.addActionListener(evt2 -> {
         ButtonTopPanel = new javax.swing.JPanel(new FlowLayout(FlowLayout.LEFT));
         ModeActive = new javax.swing.JLabel();
         ModeApp = new javax.swing.JComboBox<>();
-        DrawingPanel = new javax.swing.JPanel();
+        oldDrawingPanel = new javax.swing.JPanel();
         EditionPanel = new javax.swing.JPanel();
         editionTailleElementSelectionne = new javax.swing.JLabel();
         NomElementSelectionne = new javax.swing.JLabel();
-        SelectionElements = new javax.swing.JLabel();
-        Element1Piece = new javax.swing.JButton();
-        Element2Meuble = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         largeur1 = new javax.swing.JTextField();
         jComboBox4 = new javax.swing.JComboBox<>();
@@ -168,20 +168,19 @@ appliquerRedimension.addActionListener(evt2 -> {
         jComboBox5 = new javax.swing.JComboBox<>();
         longueurLabel2 = new javax.swing.JLabel();
         largeurLabel2 = new javax.swing.JLabel();
-        jSeparator4 = new javax.swing.JSeparator();
         jButton5 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         AxeX = new javax.swing.JTextField();
         AxeY = new javax.swing.JTextField();
         jButtonDeplacer = new javax.swing.JButton();
+        buttonSupprimerElement = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         SaveProjectMenu = new javax.swing.JMenu();
         saveProject = new javax.swing.JMenuItem();
         LoadProjectMenu = new javax.swing.JMenuItem();
         exportPNG = new javax.swing.JMenuItem();
         nouvellePiece = new javax.swing.JMenuItem();
-        redimensionnerPiece = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         zoomIn = new javax.swing.JMenuItem();
         zoomOut = new javax.swing.JMenuItem();
@@ -201,8 +200,7 @@ appliquerRedimension.addActionListener(evt2 -> {
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
+        menuSupprimerElement = new javax.swing.JMenu();
 
         jMenu3.setText("jMenu3");
 
@@ -227,7 +225,7 @@ appliquerRedimension.addActionListener(evt2 -> {
 
         getContentPane().add(ButtonTopPanel, java.awt.BorderLayout.NORTH);
 
-        DrawingPanel.setBackground(new java.awt.Color(51, 51, 51));
+        oldDrawingPanel.setBackground(new java.awt.Color(51, 51, 51));
 
         EditionPanel.setBackground(new java.awt.Color(102, 102, 102));
         EditionPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -237,17 +235,6 @@ appliquerRedimension.addActionListener(evt2 -> {
 
         NomElementSelectionne.setForeground(new java.awt.Color(255, 255, 255));
         NomElementSelectionne.setText("** ??? **");
-
-        SelectionElements.setText("Elements de la pièce (vue/séléction)");
-
-        Element1Piece.setText("- >Meuble (Toilette)");
-        Element1Piece.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Element1PieceActionPerformed(evt);
-            }
-        });
-
-        Element2Meuble.setText("-> Meuble (Placard)");
 
         jButton3.setText("Redimensionner la pièce");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -286,7 +273,7 @@ appliquerRedimension.addActionListener(evt2 -> {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "régulière", "irrégulière" }));
 
-        jButton4.setText("Appliquer taille");
+        jButton4.setText("Modifier taille");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -314,9 +301,9 @@ appliquerRedimension.addActionListener(evt2 -> {
             }
         });
 
-        longueurLabel2.setText("Longueur");
+        longueurLabel2.setText("Largeur");
 
-        largeurLabel2.setText("largeur");
+        largeurLabel2.setText("Longueur");
 
         jButton5.setText("Créer la pièce");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -338,10 +325,17 @@ appliquerRedimension.addActionListener(evt2 -> {
 
         AxeY.setText("0");
 
-        jButtonDeplacer.setText("Déplacer le meuble");
+        jButtonDeplacer.setText("Déplacer element");
         jButtonDeplacer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonDeplacerActionPerformed(evt);
+            }
+        });
+
+        buttonSupprimerElement.setText("Supprimer element");
+        buttonSupprimerElement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSupprimerElementActionPerformed(evt);
             }
         });
 
@@ -352,8 +346,6 @@ appliquerRedimension.addActionListener(evt2 -> {
             .addGroup(EditionPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(EditionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(SelectionElements, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(EditionPanelLayout.createSequentialGroup()
                         .addGroup(EditionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(EditionPanelLayout.createSequentialGroup()
@@ -363,15 +355,7 @@ appliquerRedimension.addActionListener(evt2 -> {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(EditionPanelLayout.createSequentialGroup()
-                                .addGroup(EditionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(AxeX, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(EditionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(AxeY, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(EditionPanelLayout.createSequentialGroup()
                         .addGroup(EditionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -379,38 +363,44 @@ appliquerRedimension.addActionListener(evt2 -> {
                                 .addComponent(longueurLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(largeurLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonDeplacer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(EditionPanelLayout.createSequentialGroup()
+                                .addComponent(longueurLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(largeurLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(EditionPanelLayout.createSequentialGroup()
                                 .addGroup(EditionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(AxeX, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(EditionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(AxeY)
                                     .addGroup(EditionPanelLayout.createSequentialGroup()
-                                        .addComponent(longueurLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(largeurLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 2, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jLabel3)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(EditionPanelLayout.createSequentialGroup()
                                 .addGroup(EditionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(EditionPanelLayout.createSequentialGroup()
                                         .addComponent(jLabel1)
                                         .addGap(18, 18, 18)
                                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(EditionPanelLayout.createSequentialGroup()
                                         .addComponent(editionTailleElementSelectionne)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(NomElementSelectionne))
-                                    .addGroup(EditionPanelLayout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addGroup(EditionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(Element2Meuble, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(Element1Piece, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(EditionPanelLayout.createSequentialGroup()
-                                        .addComponent(largeur2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(longueur2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(27, 27, 27)
+                                        .addComponent(NomElementSelectionne)))
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jButtonDeplacer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EditionPanelLayout.createSequentialGroup()
+                                .addGroup(EditionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(buttonSupprimerElement, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, EditionPanelLayout.createSequentialGroup()
+                                        .addComponent(largeur2, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(longueur2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(6, 6, 6)))
                         .addContainerGap())))
         );
         EditionPanelLayout.setVerticalGroup(
@@ -435,7 +425,7 @@ appliquerRedimension.addActionListener(evt2 -> {
                 .addComponent(jButton3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(EditionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editionTailleElementSelectionne)
                     .addComponent(NomElementSelectionne))
@@ -444,49 +434,46 @@ appliquerRedimension.addActionListener(evt2 -> {
                     .addComponent(longueurLabel2)
                     .addComponent(largeurLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(EditionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(EditionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(largeur2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(longueur2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addGroup(EditionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(longueur2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(EditionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addGap(5, 5, 5)
-                .addGroup(EditionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(AxeX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(AxeY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonDeplacer)
-                .addGap(2, 2, 2)
-                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SelectionElements, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Element1Piece)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Element2Meuble)
-                .addGap(23, 23, 23))
+                .addComponent(buttonSupprimerElement)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addGroup(EditionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(EditionPanelLayout.createSequentialGroup()
+                        .addGroup(EditionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGap(39, 39, 39))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EditionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(AxeY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(AxeX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonDeplacer)
+                .addGap(43, 43, 43))
         );
 
-        javax.swing.GroupLayout DrawingPanelLayout = new javax.swing.GroupLayout(DrawingPanel);
-        DrawingPanel.setLayout(DrawingPanelLayout);
-        DrawingPanelLayout.setHorizontalGroup(
-            DrawingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DrawingPanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout oldDrawingPanelLayout = new javax.swing.GroupLayout(oldDrawingPanel);
+        oldDrawingPanel.setLayout(oldDrawingPanelLayout);
+        oldDrawingPanelLayout.setHorizontalGroup(
+            oldDrawingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(oldDrawingPanelLayout.createSequentialGroup()
                 .addComponent(EditionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 549, Short.MAX_VALUE))
+                .addGap(0, 531, Short.MAX_VALUE))
         );
-        DrawingPanelLayout.setVerticalGroup(
-            DrawingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DrawingPanelLayout.createSequentialGroup()
+        oldDrawingPanelLayout.setVerticalGroup(
+            oldDrawingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, oldDrawingPanelLayout.createSequentialGroup()
                 .addComponent(EditionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        getContentPane().add(DrawingPanel, java.awt.BorderLayout.CENTER);
+        getContentPane().add(oldDrawingPanel, java.awt.BorderLayout.CENTER);
 
         jMenuBar1.setBackground(new java.awt.Color(0, 0, 0));
         jMenuBar1.setForeground(new java.awt.Color(102, 102, 102));
@@ -515,9 +502,6 @@ appliquerRedimension.addActionListener(evt2 -> {
             }
         });
         SaveProjectMenu.add(nouvellePiece);
-
-        redimensionnerPiece.setText("Redimensionner pièce");
-        SaveProjectMenu.add(redimensionnerPiece);
         SaveProjectMenu.add(jSeparator1);
 
         zoomIn.setText("Zoom in");
@@ -604,11 +588,8 @@ appliquerRedimension.addActionListener(evt2 -> {
 
         jMenuBar1.add(AjouterElementMenu);
 
-        jMenu1.setText("Supprimer element");
-        jMenuBar1.add(jMenu1);
-
-        jMenu4.setText("Redimensionner element");
-        jMenuBar1.add(jMenu4);
+        menuSupprimerElement.setText("Supprimer element");
+        jMenuBar1.add(menuSupprimerElement);
 
         setJMenuBar(jMenuBar1);
 
@@ -617,7 +598,7 @@ appliquerRedimension.addActionListener(evt2 -> {
 
     private void redoMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_redoMenuActionPerformed
             controleur.redo();
-            DrawingPanel.repaint();
+            oldDrawingPanel.repaint();
     }//GEN-LAST:event_redoMenuActionPerformed
 
     private void saveProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveProjectActionPerformed
@@ -628,136 +609,14 @@ appliquerRedimension.addActionListener(evt2 -> {
         // TODO add your handling code here:
     }//GEN-LAST:event_zoomInActionPerformed
 
-    private void Element1PieceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Element1PieceActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Element1PieceActionPerformed
-
     private void ModeAppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModeAppActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ModeAppActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        try {
-        // Récupérer les valeurs des champs du deuxième groupe
-        int largeur = Integer.parseInt(largeur1.getText());
-        int longueur = Integer.parseInt(longueur1.getText());
-        
-        // Récupérer l'unité sélectionnée
-        String unite = (String) jComboBox5.getSelectedItem();
-        /*
-        // Conversion inch -> px si nécessaire
-        if (unite.equals("inch")) {
-            largeur = (int)(largeur * 2.54);
-            longueur = (int)(longueur * 2.54);
-        }
-        */
-        // Redimensionner la pièce via le contrôleur
-        controleur.redimensionnerPiece(largeur, longueur);
-        
-        // Redessiner
-        DrawingPanel.repaint();
-       
-    } catch (NumberFormatException e) {
-        javax.swing.JOptionPane.showMessageDialog(
-            this, 
-            "Erreur: Veuillez entrer des nombres valides!",
-            "Erreur",
-            javax.swing.JOptionPane.ERROR_MESSAGE
-        );
-    }
-        
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void largeur1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_largeur1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_largeur1ActionPerformed
-
-    private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox4ActionPerformed
-
-    private void longueur1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_longueur1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_longueur1ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-        try {
-        int nouvelleLargeur = Integer.parseInt(largeur2.getText().trim());
-        int nouvelleLongueur = Integer.parseInt(longueur2.getText().trim());
-
-        boolean ok = controleur.redimensionnerMeubleSelectionne(nouvelleLargeur, nouvelleLongueur);
-        if (!ok) {
-            javax.swing.JOptionPane.showMessageDialog(
-                this,
-                "Aucun meuble sélectionné ou valeurs invalides.",
-                "Redimensionnement",
-                javax.swing.JOptionPane.WARNING_MESSAGE
-            );
-            return;
-        }
-        DrawingPanel.repaint();
-        afficherMeubleSelectionne();
-
-    } catch (NumberFormatException ex) {
-        javax.swing.JOptionPane.showMessageDialog(
-            this,
-            "Veuillez entrer des nombres valides pour largeur/longueur.",
-            "Erreur",
-            javax.swing.JOptionPane.ERROR_MESSAGE
-        );
-    }
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void largeur2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_largeur2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_largeur2ActionPerformed
-
-    private void longueur2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_longueur2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_longueur2ActionPerformed
-
-    private void jComboBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox5ActionPerformed
-
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         controleur.ajouterMeubleSansDrain(100, 100, 70, 110, TypeMeubleSansDrain.PLACARD);
-        DrawingPanel.repaint(); // pour redessiner
+        oldDrawingPanel.repaint(); // pour redessiner
     }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-        try {
-        // Récupérer les valeurs des champs
-        int largeur = Integer.parseInt(largeur1.getText());
-        int longueur = Integer.parseInt(longueur1.getText());
-        
-        // Récupérer l'unité sélectionnée
-        String unite = (String) jComboBox4.getSelectedItem();
-        /*
-        // Conversion inch -> px 
-        if (unite.equals("inch")) {
-            largeur = (int)(largeur * 2.54); // conversion approximative
-            longueur = (int)(longueur * 2.54);
-        }
-        */
-        // Créer la nouvelle pièce via le contrôleur
-        controleur.creerPieceReguliere(320, 120, largeur, longueur);
-        
-        // Redessiner
-        DrawingPanel.repaint();
-        
-    } catch (NumberFormatException e) {
-        javax.swing.JOptionPane.showMessageDialog(
-            this, 
-            "Erreur: Veuillez entrer des nombres valides!",
-            "Erreur",
-            javax.swing.JOptionPane.ERROR_MESSAGE
-        );
-    }
-    }//GEN-LAST:event_jButton5ActionPerformed
 
     //Créer une pièce depuis le menu File -> nouvelle pièce 
     //on crée une nouvelle pièce avec des valeurs par défaut
@@ -765,7 +624,7 @@ appliquerRedimension.addActionListener(evt2 -> {
         // TODO add your handling code here:
         // Crée une pièce avec des dimensions par défaut
         controleur.creerPieceReguliere(320, 120, 400, 300);
-        DrawingPanel.repaint();
+        oldDrawingPanel.repaint();
     
         //met à jour les champs pour refléter les nouvelles valeurs
         largeur1.setText("400");
@@ -774,43 +633,164 @@ appliquerRedimension.addActionListener(evt2 -> {
 
     private void undoMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_undoMenuActionPerformed
         controleur.undo();
-        DrawingPanel.repaint();
+        oldDrawingPanel.repaint();
     }//GEN-LAST:event_undoMenuActionPerformed
+
+    private void jButtonDeplacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeplacerActionPerformed
+        try {
+            int nouvelX = Integer.parseInt(AxeX.getText().trim());
+            int nouvelY = Integer.parseInt(AxeY.getText().trim());
+
+            boolean ok = controleur.deplacerMeubleSelectionne(nouvelX, nouvelY);
+            if (!ok) {
+                javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "Aucun meuble sélectionné.",
+                    "Déplacement",
+                    javax.swing.JOptionPane.WARNING_MESSAGE
+                );
+                return;
+            }
+            oldDrawingPanel.repaint();
+
+        } catch (NumberFormatException ex) {
+            javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "Veuillez entrer des nombres valides pour X et Y.",
+                "Erreur",
+                javax.swing.JOptionPane.ERROR_MESSAGE
+            );
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonDeplacerActionPerformed
 
     private void AxeXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AxeXActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_AxeXActionPerformed
 
-    private void jButtonDeplacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeplacerActionPerformed
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
         try {
-                int nouvelX = Integer.parseInt(AxeX.getText().trim());
-                int nouvelY = Integer.parseInt(AxeY.getText().trim());
+            // Récupérer les valeurs des champs
+            int largeur = Integer.parseInt(largeur1.getText());
+            int longueur = Integer.parseInt(longueur1.getText());
 
-                boolean ok = controleur.deplacerMeubleSelectionne(nouvelX, nouvelY);
-                if (!ok) {
-                    javax.swing.JOptionPane.showMessageDialog(
-                        this,
-                        "Aucun meuble sélectionné.",
-                        "Déplacement",
-                        javax.swing.JOptionPane.WARNING_MESSAGE
-                    );
-                    return;
-                }
-                DrawingPanel.repaint();
+            // Récupérer l'unité sélectionnée
+            String unite = (String) jComboBox4.getSelectedItem();
+            /*
+            // Conversion inch -> px
+            if (unite.equals("inch")) {
+                largeur = (int)(largeur * 2.54); // conversion approximative
+                longueur = (int)(longueur * 2.54);
+            }
+            */
+            // Créer la nouvelle pièce via le contrôleur
+            controleur.creerPieceReguliere(320, 120, largeur, longueur);
 
-            } catch (NumberFormatException ex) {
+            // Redessiner
+            oldDrawingPanel.repaint();
+
+        } catch (NumberFormatException e) {
+            javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "Erreur: Veuillez entrer des nombres valides!",
+                "Erreur",
+                javax.swing.JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jComboBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox5ActionPerformed
+
+    private void longueur2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_longueur2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_longueur2ActionPerformed
+
+    private void largeur2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_largeur2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_largeur2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        try {
+            int nouvelleLargeur = Integer.parseInt(largeur2.getText().trim());
+            int nouvelleLongueur = Integer.parseInt(longueur2.getText().trim());
+
+            boolean ok = controleur.redimensionnerMeubleSelectionne(nouvelleLargeur, nouvelleLongueur);
+            if (!ok) {
                 javax.swing.JOptionPane.showMessageDialog(
                     this,
-                    "Veuillez entrer des nombres valides pour X et Y.",
-                    "Erreur",
-                    javax.swing.JOptionPane.ERROR_MESSAGE
+                    "Aucun meuble sélectionné ou valeurs invalides.",
+                    "Redimensionnement",
+                    javax.swing.JOptionPane.WARNING_MESSAGE
                 );
-            }        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonDeplacerActionPerformed
+                return;
+            }
+            oldDrawingPanel.repaint();
+            afficherMeubleSelectionne();
+
+        } catch (NumberFormatException ex) {
+            javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "Veuillez entrer des nombres valides pour largeur/longueur.",
+                "Erreur",
+                javax.swing.JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void longueur1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_longueur1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_longueur1ActionPerformed
+
+    private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox4ActionPerformed
+
+    private void largeur1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_largeur1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_largeur1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        try {
+            // Récupérer les valeurs des champs du deuxième groupe
+            int largeur = Integer.parseInt(largeur1.getText());
+            int longueur = Integer.parseInt(longueur1.getText());
+
+            // Récupérer l'unité sélectionnée
+            String unite = (String) jComboBox5.getSelectedItem();
+            /*
+            // Conversion inch -> px si nécessaire
+            if (unite.equals("inch")) {
+                largeur = (int)(largeur * 2.54);
+                longueur = (int)(longueur * 2.54);
+            }
+            */
+            // Redimensionner la pièce via le contrôleur
+            controleur.redimensionnerPiece(largeur, longueur);
+
+            // Redessiner
+            oldDrawingPanel.repaint();
+
+        } catch (NumberFormatException e) {
+            javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "Erreur: Veuillez entrer des nombres valides!",
+                "Erreur",
+                javax.swing.JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void buttonSupprimerElementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSupprimerElementActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonSupprimerElementActionPerformed
 
      private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt){
         controleur.ajouterMeubleSansDrain(200, 100, 70, 70, TypeMeubleSansDrain.ARMOIRE);
-        DrawingPanel.repaint();
+        oldDrawingPanel.repaint();
 
     }
      
@@ -832,16 +812,13 @@ appliquerRedimension.addActionListener(evt2 -> {
     private javax.swing.JTextField AxeX;
     private javax.swing.JTextField AxeY;
     private javax.swing.JPanel ButtonTopPanel;
-    private javax.swing.JPanel DrawingPanel;
     private javax.swing.JPanel EditionPanel;
-    private javax.swing.JButton Element1Piece;
-    private javax.swing.JButton Element2Meuble;
     private javax.swing.JMenuItem LoadProjectMenu;
     private javax.swing.JLabel ModeActive;
     private javax.swing.JComboBox<String> ModeApp;
     private javax.swing.JLabel NomElementSelectionne;
     private javax.swing.JMenu SaveProjectMenu;
-    private javax.swing.JLabel SelectionElements;
+    private javax.swing.JButton buttonSupprimerElement;
     private javax.swing.JMenu editMenu;
     private javax.swing.JLabel editionTailleElementSelectionne;
     private javax.swing.JMenuItem exportPNG;
@@ -855,10 +832,8 @@ appliquerRedimension.addActionListener(evt2 -> {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
@@ -872,7 +847,6 @@ appliquerRedimension.addActionListener(evt2 -> {
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTextField largeur1;
     private javax.swing.JTextField largeur2;
     private javax.swing.JLabel largeurLabel1;
@@ -881,9 +855,10 @@ appliquerRedimension.addActionListener(evt2 -> {
     private javax.swing.JTextField longueur2;
     private javax.swing.JLabel longueurLabel1;
     private javax.swing.JLabel longueurLabel2;
+    private javax.swing.JMenu menuSupprimerElement;
     private javax.swing.JMenuItem nouvellePiece;
+    private javax.swing.JPanel oldDrawingPanel;
     private javax.swing.JMenu quitMenu;
-    private javax.swing.JMenuItem redimensionnerPiece;
     private javax.swing.JMenuItem redoMenu;
     private javax.swing.JMenuItem saveProject;
     private javax.swing.JMenuItem undoMenu;
